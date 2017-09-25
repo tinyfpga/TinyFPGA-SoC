@@ -20,9 +20,12 @@ module wb_gpio #(
     // gpio interface
     inout [WB_DATA_WIDTH-1:0]       gpio
 );
-    reg [WB_DATA_WIDTH-1:0] data_direction_register;
-    reg [WB_DATA_WIDTH-1:0] input_data_register;
-    reg [WB_DATA_WIDTH-1:0] output_data_register;
+    initial ack_o = 0;
+    initial dat_o = 0;
+
+    reg [WB_DATA_WIDTH-1:0] data_direction_register = 0;
+    reg [WB_DATA_WIDTH-1:0] input_data_register = 0;
+    reg [WB_DATA_WIDTH-1:0] output_data_register = 0;
 
     wire valid_cmd = !rst_i && stb_i;
     wire valid_write_cmd = valid_cmd && we_i;
@@ -71,7 +74,7 @@ module wb_gpio #(
     genvar i;
     generate  
         for (i = 0; i < WB_DATA_WIDTH; i = i + 1) begin
-            assign gpio = data_direction_register[i] ? 1'bz : output_data_register[i];
+            assign gpio[i] = data_direction_register[i] ? output_data_register[i] : 1'bz;
         end
     endgenerate
 endmodule

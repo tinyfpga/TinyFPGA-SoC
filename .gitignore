@@ -6,3 +6,5 @@ synlog.tcl
 *bak
 gerbers/
 build/
+*.vcd
+*.vvp

@@ -116,10 +116,8 @@ module wb_6502_bridge_test;
     
     initial begin
         $dumpvars;
-        $display("1");
         ack_i <= 0;
         reset();
-        $display("2");
         
         run_clk(10);
 
@@ -131,7 +129,6 @@ module wb_6502_bridge_test;
 
         ack_i <= 1;
         run_clk(10);
-        $display("finish");
 
         $finish(1);
     end
