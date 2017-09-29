@@ -160,31 +160,40 @@ module mcu (
     ///////////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
     ///
-    /// PORTA
+    /// 6522 VIA
     ///
     ///////////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
-    wire porta_stb_i;
-    wire porta_we_i;
-    wire [15:0] porta_adr_i;
-    wire [7:0] porta_dat_i;
-    wire porta_ack_o;
-    wire [7:0] porta_dat_o;
+    wire via_stb_i;
+    wire via_we_i;
+    wire [15:0] via_adr_i;
+    wire [7:0] via_dat_i;
+    wire via_ack_o;
+    wire [7:0] via_dat_o;
 
-    wb_gpio #(
+    wb_6522_via #(
         .WB_DATA_WIDTH(8),
-        .WB_ADDR_WIDTH(2)
-    ) porta_inst (
+        .WB_ADDR_WIDTH(4)
+    ) wb_6522_via_inst (
         .clk_i(clock),
         .rst_i(reset),
-        .stb_i(porta_stb_i),
-        .we_i(porta_we_i),
-        .adr_i(porta_adr_i),
-        .dat_i(porta_dat_i),
-        .ack_o(porta_ack_o),
-        .dat_o(porta_dat_o),
-        .gpio(porta)
+        .stb_i(via_stb_i),
+        .we_i(via_we_i),
+        .adr_i(via_adr_i),
+        .dat_i(via_dat_i),
+        .ack_o(via_ack_o),
+        .dat_o(via_dat_o),
+
+        //.irq(),
+        //.ca2(),
+        //.ca1(),
+        //.cb2(),
+        //.cb1(),
+
+        .port_a(port_a),
+        .port_b(port_b)
     );
+
 
 
 
